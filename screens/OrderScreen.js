@@ -1,91 +1,3 @@
-// import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from "react-native";
-// import React from "react";
-// import LottieView from "lottie-react-native";
-// import { useNavigation } from "@react-navigation/native";
-
-// const OrderScreen = () => {
-
-//   const navigation = useNavigation();
-
-//   const handleGoToHome = () => {
-//     navigation.navigate('Home');
-//   }
-  
-
-
-//   return (
-//     <SafeAreaView>
-//       <LottieView
-//         source={require("../assets/thumbs.json")}
-//         style={{
-//           height: 360,
-//           width:300,
-//           alignSelf: "center",
-//           marginTop: 40,
-//           justifyContent: "center",
-//         }}
-//         autoPlay
-//         loop={false}
-//         speed={0.7}
-//       />
-
-//       <Text
-//         style={{
-//           marginTop: 40,
-//           fontSize: 19,
-//           fontWeight: "600",
-//           textAlign: "center",
-//         }}
-//       >
-//         Commande placeé avec succès
-//       </Text>
-
-//       <LottieView
-//         source={require("../assets/sparkle.json")}
-//         style={{
-//           height: 300,
-//           position: "absolute",
-//           top: 100,
-//           width: 300,
-//           alignSelf: "center",
-//         }}
-//         autoPlay
-//         loop={false}
-//         speed={0.7}
-//       />
-
-// <TouchableOpacity
-//     style={{
-//       backgroundColor: "#088F8F",
-//       padding: 10,
-//       borderRadius: 10,
-//       marginTop: 50,
-//       alignSelf: "center"
-//     }}
-//     onPress={handleGoToHome}
-//   >
-//     <Text
-//       style={{
-//         color: "#fff",
-//         fontSize: 20,
-//         fontWeight: "600",
-//         textAlign: "center"
-//       }}
-//     >
-//       Aller à l'écran d'accueil
-//     </Text>
-//   </TouchableOpacity>
-
-
-      
-//     </SafeAreaView>
-//   );
-// };
-
-// export default OrderScreen;
-
-// const styles = StyleSheet.create({});
-
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Animated, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -105,9 +17,9 @@ export default function OrderCompletedScreen() {
     });
   }
 
-  const handleGoToHome = () => {
-    navigation.navigate('Home');
-  }
+  // const handleGoToHome = () => {
+  //   navigation.navigate('Home');
+  // }
 
   useEffect(() => {
     Animated.timing(animation, {
@@ -120,9 +32,9 @@ export default function OrderCompletedScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Ionicons name="arrow-back" size={24} color="#fff" />
+        {/* <Ionicons name="arrow-back" size={24} color="#fff" onPress={navigation.navigate('Home')}/> */}
         <Text style={styles.headerTitle}>Commande Réussie</Text>
-        <AntDesign name="home" size={24} color="#fff" onPress={handleGoToHome}/>
+        {/* <AntDesign name="home" size={24} color="#fff" onPress={handleGoToHome}/> */}
       </View>
       <Animated.View style={[styles.orderContainer, {opacity: animation}]}>
         <View style={styles.orderHeader}>
@@ -131,6 +43,7 @@ export default function OrderCompletedScreen() {
         </View>
         <Text style={styles.orderText}>Votre commande a été reçue!</Text>
         <Text style={styles.orderNumber}>Type de Service: {route.params.vip}</Text>
+        <Text style={styles.orderNumber}>Methode de Paiement: {route.params.PaymentMethod}</Text>
         <Text style={styles.orderTotal}>Montant Total: {route.params.total} CFA</Text>
         <TouchableOpacity style={styles.button} onPress={handleGoToOrders}>
           <Text style={styles.buttonText}>Aller vérifier votre commande</Text>

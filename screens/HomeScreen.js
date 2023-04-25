@@ -57,46 +57,6 @@ const HomeScreen = () => {
         }
       };
 
-      // const getCurrentLocation = async () => {
-      //   let { status } = await Location.requestForegroundPermissionsAsync();
-    
-      //   if (status !== "granted") {
-      //     Alert.alert(
-      //       "Permission refusée",
-      //       "Svp permettez a l'application d'utiliser les services de localisation",
-      //       [
-      //         {
-      //           text: "annulé",
-      //           onPress: () => console.log("Cancel Pressed"),
-      //           style: "cancel",
-      //         },
-      //         { text: "OK", onPress: () => console.log("OK Pressed") },
-      //       ],
-      //       { cancelable: false }
-      //     );
-      //   };
-
-      //   const {coords} = await Location.getCurrentPositionAsync();
-      //   // console.log(coords);
-
-      //   if (coords) {
-      //     const {latitude, longitude} = coords;
-
-      //     let response = await Location.reverseGeocodeAsync({
-      //       latitude,
-      //       longitude
-      //     });
-
-      //     // console.log(response)
-
-      //     for (let item of response) {
-      //       let address = `${item.name} ${item.city}`
-      //       setdisplayCurrentAddress(address)
-      //     }
-      //   }
-      // };
-
-
       const getCurrentLocation = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") {
@@ -132,6 +92,8 @@ const HomeScreen = () => {
       
 
       const product = useSelector((state) => state.product.product);
+      const [searchQuery, setSearchQuery] = useState('');
+      const [filteredProducts, setFilteredProducts] = useState([]);
       const dispatch = useDispatch();
       useEffect(() => {
         if (product.length > 0) return
@@ -145,8 +107,17 @@ const HomeScreen = () => {
           items?.map((service) => dispatch(getProducts(service)))
         }
         fetchProducts();
-      }, []);
+        setFilteredProducts(
+          product.filter((item) =>
+            item.name.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        );
+      }, [product, searchQuery]);
       // console.log(product)
+
+      const handleSearch = (text) => {
+        setSearchQuery(text);
+      };
 
         
 
@@ -188,7 +159,10 @@ const HomeScreen = () => {
             borderRadius: 7,
           }}
         >
-          <TextInput placeholder="Cherchez un service" />
+          <TextInput placeholder="Cherchez un service" onChangeText={handleSearch} value={searchQuery}/>
+          {filteredProducts.map((item) => (
+        <DressItem key={item.id} item={item} />
+         ))}
           <Feather name="search" size={24} color="#fd5c63" />
         </View>
 

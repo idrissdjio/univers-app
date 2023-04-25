@@ -46,15 +46,16 @@ const CartScreen = () => {
   const placeOrder = async () => {
     navigation.navigate("Order", {
       total: total,
-      vip: route.params.vip
+      vip: route.params.vip,
+      PaymentMethod: route.params.PaymentMethod,
     });
     dispatch(cleanCart());
 
 
-    date = new Date().getDate();
-    month = new Date().getMonth() + 1;
+    let date = new Date().getDate();
+    let month = new Date().getMonth() + 1;
     // endMonth = new Date().getMonth() + 2;
-    year = new Date().getFullYear();
+    let year = new Date().getFullYear();
 
     full_date = date + '/' + month + '/' + year
 
@@ -66,7 +67,6 @@ const CartScreen = () => {
         Details_Livraison: route.params,
         Jour_de_Commande: full_date,
         Somme_total: total,
-        
       },
       {
         mergeFields: ['Commandes', 'Details_Livraison', 'Jour_de_Commande', 'Somme_total'],
@@ -285,6 +285,30 @@ const CartScreen = () => {
                     0 CFA
                   </Text>
                 </View>
+
+                {/* <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginVertical: 8,
+                  }}
+                >
+                  <Text
+                    style={{ fontSize: 18, fontWeight: "400", color: "gray" }}
+                  >
+                    Methode de Paiement
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: "400",
+                      color: "#088F8F",
+                    }}
+                  >
+                    {route.params.PaymentMethod}
+                  </Text>
+                </View> */}
 
                 {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Text

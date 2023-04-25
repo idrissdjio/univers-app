@@ -22,6 +22,7 @@ const PickUpScreen = () => {
   const [selectedTime, setSelectedTime] = useState([]);
   const [delivery, setDelivery] = useState([]);
   const [selectedVIP, setSelectedVIP] = useState([]);
+  const [PaymentMethod, setPaymentMethod] = useState([]);
   const [location, setLocation] = useState('');
 
  
@@ -49,6 +50,21 @@ const PickUpScreen = () => {
     {
       id: "2",
       name: "Premium"
+    },
+  ]
+
+  const payment = [
+    {
+      id: "0",
+      name: "MTN Money"
+    },
+    {
+      id: "1",
+      name: "Orange Money"
+    },
+    {
+      id: "2",
+      name: "CASH"
     },
   ]
 
@@ -127,6 +143,7 @@ const PickUpScreen = () => {
             Nombre_jours:delivery,
             vip: selectedVIP,
             Localisation: location,
+            PaymentMethod: PaymentMethod
         })
         console.log(updatedDate)
       }
@@ -182,9 +199,43 @@ const PickUpScreen = () => {
                       borderWidth: 0.7,
                       width: '38%',
                       // backgroundColor: "#088F8F"
-                    }
+                    }   
+              }
+            >
+              <Text style={{textAlign: 'center', fontSize: 14}}>{item.name}</Text>
+            </Pressable>
+          ))}
+        </ScrollView>}
 
-                    
+
+        <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}>
+          Methode de Paiement
+        </Text>
+
+        { <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {payment.map((item, index) => (
+            <Pressable
+              key={index}
+              onPress={() => setPaymentMethod(item.name)}
+              style={
+                PaymentMethod.includes(item.name)  ? {
+                      margin: 10,
+                      borderRadius: 7,
+                      padding: 15,
+                      // borderColor: "red",
+                      borderWidth: 0.7,
+                      backgroundColor: "#088F8F",
+                      width: '38%',
+                    }
+                  : {
+                      margin: 10,
+                      borderRadius: 7,
+                      padding: 15,
+                      borderColor: "gray",
+                      borderWidth: 0.7,
+                      width: '38%',
+                      // backgroundColor: "#088F8F"
+                    }   
               }
             >
               <Text style={{textAlign: 'center', fontSize: 14}}>{item.name}</Text>

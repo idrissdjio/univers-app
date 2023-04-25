@@ -73,6 +73,9 @@ const UserOrders = () => {
         <Text style={styles.deliveryDetailsText}>
           <Text style={styles.deliveryDetailsLabel}>Prix Total: {total? total : 0} CFA</Text>
         </Text>
+        <Text style={styles.deliveryDetailsText}>
+          <Text style={styles.deliveryDetailsLabel}>Methode de Paiment: {deliveryDetails? deliveryDetails.PaymentMethod : ""}</Text>
+        </Text>
       </View>
 
       <View style={styles.selectedProductsContainer}>
