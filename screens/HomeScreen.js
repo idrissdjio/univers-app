@@ -7,10 +7,11 @@ import {
   Image, 
   TextInput, 
   ScrollView,
-  Alert
+  Alert,
+  TouchableOpacity
 } from 'react-native'
 import { Feather } from "@expo/vector-icons";
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as Location from "expo-location"
 import {MaterialIcons} from '@expo/vector-icons'
 import Carousel from "../components/Carousel"
@@ -93,27 +94,54 @@ const HomeScreen = () => {
 
       const product = useSelector((state) => state.product.product);
       const [searchQuery, setSearchQuery] = useState('');
-      const [filteredProducts, setFilteredProducts] = useState([]);
+      const [filteredProducts, setFilteredProducts] = useState(product);
       const dispatch = useDispatch();
+
+      const textInputRef = useRef(null)
+
+
+      // const filterProducts = () => {
+      //   const filtered = product.filter((item) =>
+      //     item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      //   );
+      //   setFilteredProducts(filtered);
+      // };
+
+      const filterProducts = () => {
+        if (searchQuery === '') {
+          setFilteredProducts(product);
+        } else {
+          const filtered = product.filter((item) =>
+            item.name.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+          setFilteredProducts(filtered);
+        }
+      };
+      
+
       useEffect(() => {
-        if (product.length > 0) return
+        if (product.length > 0) return;
 
         const fetchProducts = async () => {
           const colRef = collection(db, "types")
           const docsSnap = await getDocs(colRef)
-          docsSnap.forEach((doc => {
-            items.push(doc.data())
-          })) 
-          items?.map((service) => dispatch(getProducts(service)))
+          docsSnap.forEach((doc) => {
+            items.push(doc.data());
+          });
+          items?.map((service) => dispatch(getProducts(service)));
         }
         fetchProducts();
-        setFilteredProducts(
-          product.filter((item) =>
-            item.name.toLowerCase().includes(searchQuery.toLowerCase())
-          )
-        );
-      }, [product, searchQuery]);
+        // setFilteredProducts(
+        //   product.filter((item) =>
+        //     item.name.toLowerCase().includes(searchQuery.toLowerCase())
+        //   )
+        // );
+      }, [product]);
       // console.log(product)
+
+      useEffect(() => {
+        filterProducts();
+      }, [searchQuery]);
 
       const handleSearch = (text) => {
         setSearchQuery(text);
@@ -136,18 +164,19 @@ const HomeScreen = () => {
             <Text>{displayCurrentAddress}</Text>
           </View>
 
-          <Pressable onPress={() => navigation.navigate("Profile")} style={{ marginLeft: "auto", marginRight: 7 }}>
+          <Pressable onPress={() => navigation.navigate("Profile")} style={{ marginLeft: "auto", marginRight: 7, alignItems: "center"}}>
             <Image
               style={{ width: 40, height: 40, borderRadius: 20 }}
               source={{
-                uri: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80",
+                uri: "https://i.ibb.co/Jt4wyPV/3488cf45-9382-491d-a38a-e521b945f4ac.jpg",
               }}
             />
+            <Text style={{color: '#088F8F', fontStyle: 'italic', fontWeight:"600"}}>Infos</Text>
           </Pressable>
         </View>
 
         {/* Search Bar */}
-        <View
+        <TouchableOpacity
           style={{
             padding: 10,
             margin: 10,
@@ -158,13 +187,16 @@ const HomeScreen = () => {
             borderColor: "#C0C0C0",
             borderRadius: 7,
           }}
+          onPress= {() => {
+            textInputRef.current.focus()
+          }}
         >
-          <TextInput placeholder="Cherchez un service" onChangeText={handleSearch} value={searchQuery}/>
-          {filteredProducts.map((item) => (
-        <DressItem key={item.id} item={item} />
-         ))}
-          <Feather name="search" size={24} color="#fd5c63" />
-        </View>
+          <TextInput ref={textInputRef} placeholder="Cherchez un service" value={searchQuery} onChangeText={setSearchQuery} onEndEditing={filterProducts}/>
+          <Feather name="search" size={24} color="#C0C0C0" />
+          </TouchableOpacity>
+         {filteredProducts.map((item) => (
+          <DressItem key={item.id} item={item} />
+        ))}
 
         {/* Image Carousel */}
         <Carousel />

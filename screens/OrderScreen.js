@@ -31,6 +31,21 @@ export default function OrderCompletedScreen() {
 
   return (
     <View style={styles.container}>
+        <View
+              style={{
+                padding: 10,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Ionicons
+                onPress={() => navigation.navigate("Home")}
+                name="arrow-back"
+                size={24}
+                color="black"
+              />
+              <Text>Retour page d'accueil</Text>
+        </View>
       <View style={styles.header}>
         {/* <Ionicons name="arrow-back" size={24} color="#fff" onPress={navigation.navigate('Home')}/> */}
         <Text style={styles.headerTitle}>Commande Réussie</Text>
@@ -57,7 +72,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F0F0F0", 
     flex: 1, 
-    marginTop: 50 
+    marginTop: 40 
   },
   header: {
     backgroundColor: '#088F8F',

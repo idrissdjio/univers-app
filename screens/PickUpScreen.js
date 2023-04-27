@@ -72,23 +72,23 @@ const PickUpScreen = () => {
   const deliveryTime = [
     {
       id: "0",
-      name: "2-3 Jours",
+      name: "Express 4h",
     },
     {
       id: "1",
-      name: "3-4 Jours",
+      name: "Express 8h",
     },
     {
       id: "2",
-      name: "4-5 Jours",
+      name: "Express 24h",
     },
     {
       id: "3",
-      name: "5-6 Jours",
+      name: "2 - 3 Jours",
     },
     {
       id: "4",
-      name: "Demain",
+      name: "4 - 5 Jours",
     },
   ];
 
@@ -135,7 +135,7 @@ const PickUpScreen = () => {
             { cancelable: false }
           );
       }
-      else if(selectedTime && delivery && selectedVIP){
+      else if(selectedTime && delivery && selectedVIP && PaymentMethod){
         updatedDate = String(selectedDate).slice(4, 16)
         navigation.replace("Cart",{
             Jour_recuperation: updatedDate,

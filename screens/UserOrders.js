@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Image, ScrollView, SafeAreaView } from 'react-n
 import { useDispatch, useSelector } from 'react-redux';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const UserOrders = () => {
   const [selectedProducts, setSelectedProducts] = useState({});
@@ -15,7 +17,10 @@ const UserOrders = () => {
   // endMonth = new Date().getMonth() + 2;
   year = new Date().getFullYear();
 
+
   full_date = date + '/' + month + '/' + year
+
+  const navigation = useNavigation();
 
 
   useEffect(() => {
@@ -46,6 +51,21 @@ const UserOrders = () => {
 
   return (
     <SafeAreaView>
+              <View
+              style={{
+                padding: 10,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Ionicons
+                onPress={() => navigation.navigate("Home")}
+                name="arrow-back"
+                size={24}
+                color="black"
+              />
+              <Text>Retour page d'accueil</Text>
+        </View>
     <ScrollView style={styles.container}>
       {/* Delivery Details */}
       <View style={styles.deliveryDetailsContainer}>
@@ -77,6 +97,7 @@ const UserOrders = () => {
           <Text style={styles.deliveryDetailsLabel}>Methode de Paiment: {deliveryDetails? deliveryDetails.PaymentMethod : ""}</Text>
         </Text>
       </View>
+      
 
       <View style={styles.selectedProductsContainer}>
   <Text style={styles.selectedProductsTitle}>Ma Commande</Text>
