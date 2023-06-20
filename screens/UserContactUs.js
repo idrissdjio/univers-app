@@ -5,7 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 export default function UserContactUs() {
 
   const handleCallPress = () => {
-    Linking.openURL('tel:+237670707070');
+    Linking.openURL('tel:+237696348020');
   };
 
   return (
@@ -13,17 +13,17 @@ export default function UserContactUs() {
       <Text h1 style={styles.title}>Univers Contacts</Text>
       <TouchableOpacity style={styles.infoContainer} onPress={handleCallPress}>
         <MaterialIcons name="phone" size={32} color="#088F8F" />
-        <Text style={styles.info}>+237 6 70707070</Text>
+        <Text style={styles.info}>+237 696348020</Text>
       </TouchableOpacity>
       <View style={styles.infoContainer}>
         <MaterialIcons name="email" size={32} color="#088F8F" />
         {/* <Text style={styles.info}>info@mycompany.com</Text> */}
-        <Text style={styles.info}> univers@gmail.com</Text>
+        <Text style={styles.info}> universpressing-service@gmail.com</Text>
       </View>
       <View style={styles.infoContainer}>
         <MaterialIcons name="location-on" size={32} color="#088F8F" />
         {/* <Text style={styles.info}>123 Main St, Anytown, USA</Text> */}
-        <Text style={styles.info}>Rue univers, Akwa, Douala</Text>
+        <Text style={styles.info}>Rue kotoko en face spark security</Text>
       </View>
       <View style={styles.infoContainer}>
         <MaterialIcons name="schedule" size={32} color="#088F8F" />

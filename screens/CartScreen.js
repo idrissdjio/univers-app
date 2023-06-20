@@ -6,8 +6,10 @@ import {
   ScrollView,
   Pressable,
   TouchableOpacity,
+  Animated,
+  Image
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -24,6 +26,9 @@ import { auth, db } from "../firebase";
 const CartScreen = () => {
   const cart = useSelector((state) => state.cart.cart);
   const route = useRoute();
+  const [showLogo, setShowLogo] = useState(true);
+  const [fadeOut] = useState(new Animated.Value(1));
+
   let total = 0
   if (route.params.vip == 'Standard') {
     total = cart
@@ -38,6 +43,26 @@ const CartScreen = () => {
       .map((item) => item.quantity * item.price * 1.5)
       .reduce((curr, prev) => curr + prev, 0);
   }
+
+  useEffect(() => {
+    const hideLogo = () => {
+      Animated.timing(fadeOut, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start(() => {
+        setShowLogo(false);
+      });
+    };
+
+    const timer = setTimeout(hideLogo, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Replace 'logoURL' with the URL of your logo image
+  const logoURL = 'https://i.ibb.co/HVknj4X/univers-logo.jpg';
+
 
   const navigation = useNavigation();
   const userUid = auth.currentUser.uid;
@@ -96,7 +121,7 @@ const CartScreen = () => {
 
   return (
     <>
-      <ScrollView style={{ marginTop: 50 }}>
+      <ScrollView>
         {total === 0 ? (
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <Text style={{ marginTop: 40 }}>Aucun vêtement sélectionné</Text>
@@ -125,6 +150,11 @@ const CartScreen = () => {
           
         ) : (
           <>
+              {showLogo && (
+        <Animated.View style={[styles.logoContainer, { opacity: fadeOut }]}>
+          <Image source={{ uri: logoURL }} style={styles.logo} />
+        </Animated.View>
+      )}
             <View
               style={{
                 padding: 10,
@@ -285,38 +315,6 @@ const CartScreen = () => {
                     0 CFA
                   </Text>
                 </View>
-
-                {/* <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginVertical: 8,
-                  }}
-                >
-                  <Text
-                    style={{ fontSize: 18, fontWeight: "400", color: "gray" }}
-                  >
-                    Methode de Paiement
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: "400",
-                      color: "#088F8F",
-                    }}
-                  >
-                    {route.params.PaymentMethod}
-                  </Text>
-                </View> */}
-
-                {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Text
-                    style={{ fontSize: 18, fontWeight: "500", color: "gray" }}
-                  >
-                    Free Delivery on Your order
-                  </Text>
-                </View> */}
 
                 <View
                   style={{
@@ -498,4 +496,20 @@ const CartScreen = () => {
 
 export default CartScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  logoContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  logo: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+  },
+});

@@ -6,9 +6,11 @@ import {
   TextInput,
   Pressable,
   ScrollView,
-  Alert
+  Alert,
+  Animated,
+  Image
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HorizontalDatepicker from "@awrminkhodaei/react-native-horizontal-datepicker";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -24,7 +26,27 @@ const PickUpScreen = () => {
   const [selectedVIP, setSelectedVIP] = useState([]);
   const [PaymentMethod, setPaymentMethod] = useState([]);
   const [location, setLocation] = useState('');
+  const [showLogo, setShowLogo] = useState(true);
+  const [fadeOut] = useState(new Animated.Value(1));
 
+
+  useEffect(() => {
+    const hideLogo = () => {
+      Animated.timing(fadeOut, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start(() => {
+        setShowLogo(false);
+      });
+    };
+
+    const timer = setTimeout(hideLogo, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const logoURL = 'https://i.ibb.co/HVknj4X/univers-logo.jpg'
  
     date = new Date().getDate();
     month = new Date().getMonth() + 1;
@@ -50,7 +72,7 @@ const PickUpScreen = () => {
     {
       id: "2",
       name: "Premium"
-    },
+    }
   ]
 
   const payment = [
@@ -151,7 +173,13 @@ const PickUpScreen = () => {
 
   return (
     <>
-      <SafeAreaView style={{marginTop: 50 }}>
+      <SafeAreaView>
+        <ScrollView style={{marginBottom: 120}}>
+      {showLogo && (
+        <Animated.View style={[styles.logoContainer, { opacity: fadeOut }]}>
+          <Image source={{ uri: logoURL }} style={styles.logo} />
+        </Animated.View>
+      )}
         <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}>
           {/* Entrez votre addresse et Numero de Telephone exacte ici */}
         </Text>
@@ -164,19 +192,21 @@ const PickUpScreen = () => {
             borderRadius: 9,
             margin: 10,
             minHeight: 150,
-            maxHeight: 200,
+            maxHeight: "30%",
           }}
           multiline={true}
           value={location}
           placeholder= "Entrer votre addresse et Numero de Telephone ici"
           onChangeText={(text) => setLocation(text)}
         />
+        
 
         <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}>
           Qualite de Pressing
         </Text>
 
-        { <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {/* { <ScrollView horizontal showsHorizontalScrollIndicator={false}> */}
+        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
           {vip.map((item, index) => (
             <Pressable
               key={index}
@@ -189,7 +219,7 @@ const PickUpScreen = () => {
                       // borderColor: "red",
                       borderWidth: 0.7,
                       backgroundColor: "#088F8F",
-                      width: '38%',
+                      width: '30%',
                     }
                   : {
                       margin: 10,
@@ -197,7 +227,7 @@ const PickUpScreen = () => {
                       padding: 15,
                       borderColor: "gray",
                       borderWidth: 0.7,
-                      width: '38%',
+                      width: '30%',
                       // backgroundColor: "#088F8F"
                     }   
               }
@@ -205,14 +235,16 @@ const PickUpScreen = () => {
               <Text style={{textAlign: 'center', fontSize: 14}}>{item.name}</Text>
             </Pressable>
           ))}
-        </ScrollView>}
+          </View>
+        {/* </ScrollView>} */}
 
 
         <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}>
           Methode de Paiement
         </Text>
 
-        { <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {/* { <ScrollView horizontal showsHorizontalScrollIndicator={false}> */}
+        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
           {payment.map((item, index) => (
             <Pressable
               key={index}
@@ -221,19 +253,19 @@ const PickUpScreen = () => {
                 PaymentMethod.includes(item.name)  ? {
                       margin: 10,
                       borderRadius: 7,
-                      padding: 15,
+                      padding: 12,
                       // borderColor: "red",
                       borderWidth: 0.7,
                       backgroundColor: "#088F8F",
-                      width: '38%',
+                      width: '30%',
                     }
                   : {
                       margin: 10,
                       borderRadius: 7,
-                      padding: 15,
+                      padding: 12,
                       borderColor: "gray",
                       borderWidth: 0.7,
-                      width: '38%',
+                      width: '30%',
                       // backgroundColor: "#088F8F"
                     }   
               }
@@ -241,7 +273,8 @@ const PickUpScreen = () => {
               <Text style={{textAlign: 'center', fontSize: 14}}>{item.name}</Text>
             </Pressable>
           ))}
-        </ScrollView>}
+          </View>
+        {/* </ScrollView>} */}
 
 
         <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}>
@@ -328,6 +361,9 @@ const PickUpScreen = () => {
             </Pressable>
           ))}
         </ScrollView>
+
+
+        </ScrollView>
       </SafeAreaView>
 
       {total === 0 ? null : (
@@ -344,7 +380,7 @@ const PickUpScreen = () => {
             justifyContent: "space-between",
           }}
         >
-          <View>
+          <View style={{}}>
             <Text style={{ fontSize: 15, fontWeight: "400", color: "white" }}>
               {cart.length} vêtements  | {total} CFA
             </Text>
@@ -373,28 +409,20 @@ const PickUpScreen = () => {
 
 export default PickUpScreen;
 
-const styles = StyleSheet.create({})
-// const styles = StyleSheet.create({
-//   pressable: {
-//     margin: 10,
-//     borderRadius: 7,
-//     padding: 15,
-//     borderColor: "gray",
-//     borderWidth: 0.7,
-//     width: '38%',
-//     backgroundColor: '#fff',
-//   },
-//   selectedPressable: {
-//     backgroundColor: 'blue',
-//   },
-//   vipPressable: {
-//     backgroundColor: 'goldenrod',
-//   },
-//   premiumPressable: {
-//     backgroundColor: 'goldenrod',
-//   },
-//   text: {
-//     textAlign: 'center',
-//     fontSize: 14,
-//   },
-// });
+const styles = StyleSheet.create({
+  logoContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  logo: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+  },
+})

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Animated, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Animated, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -9,6 +9,27 @@ export default function OrderCompletedScreen() {
 
   const navigation = useNavigation();
   const route = useRoute();
+  const [showLogo, setShowLogo] = useState(true);
+  const [fadeOut] = useState(new Animated.Value(1));
+
+  useEffect(() => {
+    const hideLogo = () => {
+      Animated.timing(fadeOut, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start(() => {
+        setShowLogo(false);
+      });
+    };
+
+    const timer = setTimeout(hideLogo, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Replace 'logoURL' with the URL of your logo image
+  const logoURL = 'https://i.ibb.co/HVknj4X/univers-logo.jpg';
 
 
   const handleGoToOrders = () => {
@@ -17,9 +38,9 @@ export default function OrderCompletedScreen() {
     });
   }
 
-  // const handleGoToHome = () => {
-  //   navigation.navigate('Home');
-  // }
+  const handleGoToHome = () => {
+    navigation.navigate('Home');
+  }
 
   useEffect(() => {
     Animated.timing(animation, {
@@ -30,22 +51,12 @@ export default function OrderCompletedScreen() {
   }, []);
 
   return (
-    <View style={styles.container}>
-        <View
-              style={{
-                padding: 10,
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <Ionicons
-                onPress={() => navigation.navigate("Home")}
-                name="arrow-back"
-                size={24}
-                color="black"
-              />
-              <Text>Retour page d'accueil</Text>
-        </View>
+    <SafeAreaView style={styles.container}>
+      {showLogo && (
+        <Animated.View style={[styles.logoContainer, { opacity: fadeOut }]}>
+          <Image source={{ uri: logoURL }} style={styles.logo} />
+        </Animated.View>
+      )}
       <View style={styles.header}>
         {/* <Ionicons name="arrow-back" size={24} color="#fff" onPress={navigation.navigate('Home')}/> */}
         <Text style={styles.headerTitle}>Commande Réussie</Text>
@@ -60,11 +71,11 @@ export default function OrderCompletedScreen() {
         <Text style={styles.orderNumber}>Type de Service: {route.params.vip}</Text>
         <Text style={styles.orderNumber}>Methode de Paiement: {route.params.PaymentMethod}</Text>
         <Text style={styles.orderTotal}>Montant Total: {route.params.total} CFA</Text>
-        <TouchableOpacity style={styles.button} onPress={handleGoToOrders}>
+        <TouchableOpacity style={styles.button} onPress={handleGoToHome}>
           <Text style={styles.buttonText}>Aller vérifier votre commande</Text>
         </TouchableOpacity>
       </Animated.View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -72,7 +83,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F0F0F0", 
     flex: 1, 
-    marginTop: 40 
+    // marginTop: 15 
   },
   header: {
     backgroundColor: '#088F8F',
@@ -133,5 +144,20 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  logoContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  logo: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
   },
 });

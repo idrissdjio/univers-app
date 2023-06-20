@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, SafeAreaView, Animated } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
@@ -11,6 +11,27 @@ const UserOrders = () => {
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [deliveryDate, setDeliveryDate] = useState('');
   const [total, setTotal] = useState('')
+  const [showLogo, setShowLogo] = useState(true);
+  const [fadeOut] = useState(new Animated.Value(1));
+
+  useEffect(() => {
+    const hideLogo = () => {
+      Animated.timing(fadeOut, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start(() => {
+        setShowLogo(false);
+      });
+    };
+
+    const timer = setTimeout(hideLogo, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Replace 'logoURL' with the URL of your logo image
+  const logoURL = 'https://i.ibb.co/HVknj4X/univers-logo.jpg';
 
   date = new Date().getDate();
   month = new Date().getMonth() + 1;
@@ -51,21 +72,6 @@ const UserOrders = () => {
 
   return (
     <SafeAreaView>
-              <View
-              style={{
-                padding: 10,
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <Ionicons
-                onPress={() => navigation.navigate("Home")}
-                name="arrow-back"
-                size={24}
-                color="black"
-              />
-              <Text>Retour page d'accueil</Text>
-        </View>
     <ScrollView style={styles.container}>
       {/* Delivery Details */}
       <View style={styles.deliveryDetailsContainer}>
@@ -100,13 +106,19 @@ const UserOrders = () => {
       
 
       <View style={styles.selectedProductsContainer}>
+      {showLogo && (
+        <Animated.View style={[styles.logoContainer, { opacity: fadeOut }]}>
+          <Image source={{ uri: logoURL }} style={styles.logo} />
+        </Animated.View>
+      )}
   <Text style={styles.selectedProductsTitle}>Ma Commande</Text>
   {Object.entries(selectedProducts).length && deliveryDate ? (
     Object.entries(selectedProducts).map(([key, product]) => (
       <View style={styles.productContainer} key={key}>
         <Image source={{ uri: product.image }} style={styles.productImage} />
         <View style={styles.productInfo}>
-          <Text style={styles.productName}>{product.name}</Text>
+          {/* <Text style={styles.productName}>{product.name}</Text> */}
+          <Text style={styles.productName}>{product.name.length > 9 ? product.name.substring(0, 9)+'...' : product.name}</Text>
           <View style={styles.productPrice}>
             <Text style={styles.price}>{product.price} FCFA</Text>
             <Text style={styles.price}>{product.quantity} Pcs</Text>
@@ -135,7 +147,7 @@ export default UserOrders
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    padding: 20,
+    padding: 10,
   },
   deliveryDetailsContainer: {
     backgroundColor: '#088F8F',
@@ -209,6 +221,21 @@ const styles = StyleSheet.create({
   dateContainer: {
     marginLeft: 'auto',
     alignItems: 'flex-end',
+  },
+  logoContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  logo: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
   },
 });
 
