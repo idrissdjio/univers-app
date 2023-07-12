@@ -64,7 +64,7 @@ const UserSettings = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Welcome {user.email}</Text>
-        <Text style={styles.startupName}>Univers</Text>
+        <Text style={styles.startupName}>uTOK</Text>
       </View>
 
       <Pressable onPress={signOutUser} style={styles.signOutButton}>

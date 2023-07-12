@@ -157,7 +157,7 @@ export default function App() {
   return (
     <>
     <View style={styles.header}>
-      <Text style={styles.headerTitle}>Univers</Text>
+      <Text style={styles.headerTitle}>uTOK</Text>
     </View>
     <SafeAreaView style={styles.container}>
       <View style={styles.row}>

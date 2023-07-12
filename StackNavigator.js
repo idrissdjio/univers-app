@@ -14,13 +14,15 @@ import UserSettings from './screens/UserSettings';
 import UserOrders from './screens/UserOrders';
 import UserContactUs from './screens/UserContactUs';
 import TabNavigator from './TabNavigator';
+import GettingStarted from './screens/GettingStarted';
 
 const StackNavigator = () => {
     const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="GettingStarted">
+        <Stack.Screen name="GettingStarted" component={GettingStarted} options={{headerShown:false, gestureEnabled: false}}/>
         <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false, gestureEnabled: false}}/>
         <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown:false}}/>
         <Stack.Screen name="Home" component={TabNavigator} options={{headerShown:false}}/>

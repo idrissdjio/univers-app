@@ -26,7 +26,7 @@ export default function UserComments() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Univers</Text>
+        <Text style={styles.title}>uTOK</Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput

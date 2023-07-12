@@ -64,8 +64,8 @@ export default function OrderCompletedScreen() {
       </View>
       <Animated.View style={[styles.orderContainer, {opacity: animation}]}>
         <View style={styles.orderHeader}>
-          <Ionicons name="md-checkmark-circle-outline" size={64} color="#088F8F" />
-          <Text style={styles.orderHeaderText}>Merci d'utiliser Univers pour vos services de pressing.</Text>
+          <Ionicons name="md-checkmark-circle-outline" size={64} color="#088F8F"/>
+          <Text style={styles.orderHeaderText}>Merci d'utiliser U-TOK pour vos services de pressing.</Text>
         </View>
         <Text style={styles.orderText}>Votre commande a été reçue!</Text>
         <Text style={styles.orderNumber}>Type de Service: {route.params.vip}</Text>
