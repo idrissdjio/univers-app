@@ -140,7 +140,7 @@ const HomeScreen = () => {
         }
         fetchProducts();
         // setFilteredProducts(
-        //   product.filter((item) =>
+        //   product.filter((item, index) =>
         //     item.name.toLowerCase().includes(searchQuery.toLowerCase())
         //   )
         // );

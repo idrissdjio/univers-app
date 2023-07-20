@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Animated, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, Animated, TouchableOpacity, Image, SafeAreaView, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -51,7 +51,7 @@ export default function OrderCompletedScreen() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       {showLogo && (
         <Animated.View style={[styles.logoContainer, { opacity: fadeOut }]}>
           <Image source={{ uri: logoURL }} style={styles.logo} />
@@ -65,7 +65,7 @@ export default function OrderCompletedScreen() {
       <Animated.View style={[styles.orderContainer, {opacity: animation}]}>
         <View style={styles.orderHeader}>
           <Ionicons name="md-checkmark-circle-outline" size={64} color="#088F8F"/>
-          <Text style={styles.orderHeaderText}>Merci d'utiliser U-TOK pour vos services de pressing.</Text>
+          <Text style={styles.orderHeaderText}>Merci d'utiliser uTOK pour vos services de pressing.</Text>
         </View>
         <Text style={styles.orderText}>Votre commande a été reçue!</Text>
         <Text style={styles.orderNumber}>Type de Service: {route.params.vip}</Text>
@@ -75,7 +75,7 @@ export default function OrderCompletedScreen() {
           <Text style={styles.buttonText}>Aller vérifier votre commande</Text>
         </TouchableOpacity>
       </Animated.View>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#088F8F',
-    height: 60,
+    height: 80,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
+    marginTop: 30
   },
   orderContainer: {
     backgroundColor: '#fff',

@@ -97,10 +97,12 @@ const UserOrders = () => {
           {(deliveryDetails && deliveryDetails.Jour_recuperation!== '') ? deliveryDetails.Jour_recuperation : full_date}
         </Text>
         <Text style={styles.deliveryDetailsText}>
-          <Text style={styles.deliveryDetailsLabel}>Prix Total: {total? total : 0} CFA</Text>
+          <Text style={styles.deliveryDetailsLabel}>Prix Total: </Text>
+          {total? total : 0} CFA
         </Text>
         <Text style={styles.deliveryDetailsText}>
-          <Text style={styles.deliveryDetailsLabel}>Methode de Paiment: {deliveryDetails? deliveryDetails.PaymentMethod : ""}</Text>
+          <Text style={styles.deliveryDetailsLabel}>Methode de Paiment: </Text>
+          {deliveryDetails? deliveryDetails.PaymentMethod : ""}
         </Text>
       </View>
       
@@ -156,16 +158,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   deliveryDetailsTitle: {
-    color: '#fff',
+    color: '#000',
     fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 10,
   },
   deliveryDetailsLabel: {
     fontWeight: 'bold',
+    color: '#000',
   },
   deliveryDetailsText: {
-    color: '#fff',
+    color: '#FFC107',
     marginBottom: 5,
   },
   selectedProductsContainer: {
@@ -238,7 +241,4 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 });
-
-
-
 

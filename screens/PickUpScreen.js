@@ -174,7 +174,7 @@ const PickUpScreen = () => {
   return (
     <>
       <SafeAreaView>
-        <ScrollView style={{marginBottom: 120}}>
+        <ScrollView style={{marginBottom: 50}}>
       {showLogo && (
         <Animated.View style={[styles.logoContainer, { opacity: fadeOut }]}>
           <Image source={{ uri: logoURL }} style={styles.logo} />
@@ -192,7 +192,7 @@ const PickUpScreen = () => {
             borderRadius: 9,
             margin: 10,
             minHeight: 150,
-            maxHeight: "30%",
+            maxHeight: 150,
           }}
           multiline={true}
           value={location}
@@ -314,7 +314,7 @@ const PickUpScreen = () => {
                       padding: 15,
                       // borderColor: "red",
                       borderWidth: 0.7,
-                      backgroundColor: "#088F8F"
+                      backgroundColor: "#088F8F",
                     }
                   : {
                       margin: 10,
@@ -329,6 +329,7 @@ const PickUpScreen = () => {
             </Pressable>
           ))}
         </ScrollView>
+
         <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}>
            Date de Livraison
         </Text>
@@ -362,10 +363,7 @@ const PickUpScreen = () => {
           ))}
         </ScrollView>
 
-
         </ScrollView>
-      </SafeAreaView>
-
       {total === 0 ? null : (
         <Pressable
           style={{
@@ -403,6 +401,8 @@ const PickUpScreen = () => {
           </Pressable>
         </Pressable>
       )}
+      </SafeAreaView>
+
     </>
   );
 };

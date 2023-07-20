@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
 
 export default function GettingStarted({ navigation }) {
-
   const [loading, setLoading] = useState(false);
+
   const handleLoginPress = () => {
     navigation.navigate('Login');
   };
@@ -16,7 +16,7 @@ export default function GettingStarted({ navigation }) {
       if (!user) {
         setLoading(false);
       } else {
-        navigation.replace("Home");
+        navigation.replace('Home');
       }
     });
 
@@ -25,14 +25,17 @@ export default function GettingStarted({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.logoText}>u<Text style={styles.yellowText}>TOK</Text></Text>
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.image}
+          source={require('../assets/frontImage.png')}
+          resizeMode="cover"
+        />
       </View>
       <View style={styles.content}>
         <Text style={styles.title}>Welcome to uTOK</Text>
         <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
           <Text style={styles.buttonText}>Getting Started</Text>
-          <Text style={styles.arrow}>→</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -42,54 +45,48 @@ export default function GettingStarted({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#088F8F',
+    backgroundColor: '#E0F2F1', // Updated background color
   },
-  header: {
+  imageContainer: {
+    flex: 2, // Fills more than 80% of the screen height
+    alignItems: 'stretch',
+  },
+  image: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingBottom: 50,
-  },
-  logoText: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  yellowText: {
-    color: '#FFC107',
+    width: undefined,
+    height: undefined,
   },
   content: {
-    flex: 2,
+    flex: 2, // Takes the remaining space
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
     paddingHorizontal: 30,
   },
   title: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 30,
-    color: '#088F8F',
+    color: '#219ebc',
     textAlign: 'center',
   },
   button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#088F8F',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
+    backgroundColor: '#219ebc',
+    paddingHorizontal: 24,
+    paddingVertical: 14,
     borderRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 4,
   },
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#FFFFFF',
     marginRight: 10,
-  },
-  arrow: {
-    fontSize: 24,
-    color: '#FFFFFF',
   },
 });
