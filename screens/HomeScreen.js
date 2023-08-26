@@ -186,7 +186,7 @@ const HomeScreen = () => {
               { opacity: fadeOut, marginBottom: windowHeight * 0.05 },
             ]}
           >
-            <Image source={{ uri: logoURL }} style={styles.logo} />
+            <Image source={require('../assets/icon.png')} style={styles.logo} />
           </Animated.View>
         )}
         <View>
@@ -220,9 +220,7 @@ const HomeScreen = () => {
                   height: windowWidth * 0.1,
                   borderRadius: windowWidth * 0.05,
                 }}
-                source={{
-                  uri: "https://i.ibb.co/HVknj4X/univers-logo.jpg",
-                }}
+                source={require('../assets/logo2.jpeg')}
               />
               {/* Rest of your code... */}
               <Text style={{color: '#088F8F', fontStyle: 'italic', fontWeight:"600"}}>uTOK</Text>

@@ -110,7 +110,7 @@ const UserOrders = () => {
       <View style={styles.selectedProductsContainer}>
       {showLogo && (
         <Animated.View style={[styles.logoContainer, { opacity: fadeOut }]}>
-          <Image source={{ uri: logoURL }} style={styles.logo} />
+          <Image source={require('../assets/icon.png')} style={styles.logo} />
         </Animated.View>
       )}
   <Text style={styles.selectedProductsTitle}>Ma Commande</Text>

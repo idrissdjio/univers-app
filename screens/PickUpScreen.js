@@ -177,7 +177,7 @@ const PickUpScreen = () => {
         <ScrollView style={{marginBottom: 50}}>
       {showLogo && (
         <Animated.View style={[styles.logoContainer, { opacity: fadeOut }]}>
-          <Image source={{ uri: logoURL }} style={styles.logo} />
+          <Image source={require('../assets/icon.png')} style={styles.logo} />
         </Animated.View>
       )}
         <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}>
@@ -196,7 +196,7 @@ const PickUpScreen = () => {
           }}
           multiline={true}
           value={location}
-          placeholder= "Entrer votre addresse et Numero de Telephone ici"
+          placeholder= {"Veuillez Entrer votre addresse et Numero de Telephone ici. \nExple: Douala, bonaberie, Entree Lycee... 670707070"}
           onChangeText={(text) => setLocation(text)}
         />
         
