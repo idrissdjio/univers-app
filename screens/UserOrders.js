@@ -11,6 +11,7 @@ const UserOrders = () => {
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [deliveryDate, setDeliveryDate] = useState('');
   const [total, setTotal] = useState('')
+  // const [area, setArea] = useState('')
   const [showLogo, setShowLogo] = useState(true);
   const [fadeOut] = useState(new Animated.Value(1));
 
@@ -59,6 +60,7 @@ const UserOrders = () => {
           setDeliveryDetails(userData.Details_Livraison);
           setDeliveryDate(userData.Jour_de_Commande)
           setTotal(userData.Somme_total)
+          // setArea(userData.area)
         } else {
           console.log('User data is incomplete');
         }
@@ -79,6 +81,10 @@ const UserOrders = () => {
         <Text style={styles.deliveryDetailsText}>
           <Text style={styles.deliveryDetailsLabel}>Localisation: </Text>
           {deliveryDetails ? deliveryDetails.Localisation : ""}
+        </Text>
+        <Text style={styles.deliveryDetailsText}>
+          <Text style={styles.deliveryDetailsLabel}>Quartier: </Text>
+          {deliveryDetails ? deliveryDetails.area : ""}
         </Text>
         <Text style={styles.deliveryDetailsText}>
           <Text style={styles.deliveryDetailsLabel}>Nombre de Jours: </Text>
@@ -110,7 +116,7 @@ const UserOrders = () => {
       <View style={styles.selectedProductsContainer}>
       {showLogo && (
         <Animated.View style={[styles.logoContainer, { opacity: fadeOut }]}>
-          <Image source={require('../assets/icon.png')} style={styles.logo} />
+          <Image source={require('../assets/logo2.jpeg')} style={styles.logo} />
         </Animated.View>
       )}
   <Text style={styles.selectedProductsTitle}>Ma Commande</Text>

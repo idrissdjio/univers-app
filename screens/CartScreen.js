@@ -348,6 +348,30 @@ const CartScreen = () => {
                     {route.params.vip}
                   </Text>
                 </View>
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginVertical: 10,
+                  }}
+                >
+                  <Text
+                    style={{ fontSize: 18, fontWeight: "500", color: "gray" }}
+                  >
+                    Quartier
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: "400",
+                      color: "#088F8F",
+                    }}
+                  >
+                    {route.params.area ? route.params.area : "Non Specifie"}
+                  </Text>
+                </View>
                 
 
                 <View

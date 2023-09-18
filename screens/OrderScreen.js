@@ -54,7 +54,7 @@ export default function OrderCompletedScreen() {
     <ScrollView style={styles.container}>
       {showLogo && (
         <Animated.View style={[styles.logoContainer, { opacity: fadeOut }]}>
-          <Image source={require('../assets/icon.png')} style={styles.logo} />
+          <Image source={require('../assets/logo2.jpeg')} style={styles.logo} />
         </Animated.View>
       )}
       <View style={styles.header}>

@@ -23,6 +23,7 @@ const PickUpScreen = () => {
     .reduce((curr, prev) => curr + prev, 0);
   const [selectedTime, setSelectedTime] = useState([]);
   const [delivery, setDelivery] = useState([]);
+  const [area, setArea] = useState([]);
   const [selectedVIP, setSelectedVIP] = useState([]);
   const [PaymentMethod, setPaymentMethod] = useState([]);
   const [location, setLocation] = useState('');
@@ -140,9 +141,43 @@ const PickUpScreen = () => {
       time: "19:00",
     },
   ];
+  const areas = [
+    {
+      id: "0",
+      area: "Akwa",
+    },
+    {
+      id: "1",
+      area: "Bali",
+    },
+    {
+      id: "2",
+      area: "Bepanda",
+    },
+    {
+      id: "3",
+      area: "Deido",
+    },
+    {
+      id: "4",
+      area: "Bonaberi",
+    },
+    {
+      id: "5",
+      area: "Bonapriso",
+    },
+    {
+      id: "6",
+      area: "Bonanjo",
+    },
+    {
+      id: "7",
+      area: "Bonamoussadi",
+    }
+  ];
   const navigation = useNavigation();
   const proceedToCart = () => {
-      if(selectedTime == "" || delivery == "" || selectedVIP == "") {
+      if(selectedTime == "" || delivery == "" || selectedVIP == "" || location == "") {
         Alert.alert(
             "Case vide or invalide",
             "Svp remplissez tous les champs",
@@ -165,7 +200,8 @@ const PickUpScreen = () => {
             Nombre_jours:delivery,
             vip: selectedVIP,
             Localisation: location,
-            PaymentMethod: PaymentMethod
+            PaymentMethod: PaymentMethod,
+            area: area
         })
         console.log(updatedDate)
       }
@@ -177,7 +213,7 @@ const PickUpScreen = () => {
         <ScrollView style={{marginBottom: 50}}>
       {showLogo && (
         <Animated.View style={[styles.logoContainer, { opacity: fadeOut }]}>
-          <Image source={require('../assets/icon.png')} style={styles.logo} />
+          <Image source={require('../assets/logo2.jpeg')} style={styles.logo} />
         </Animated.View>
       )}
         <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}>
@@ -275,6 +311,39 @@ const PickUpScreen = () => {
           ))}
           </View>
         {/* </ScrollView>} */}
+
+        <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}>
+           Quartier
+        </Text>
+
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {areas.map((item, i) => (
+            <Pressable
+              style={
+                area.includes(item.area)
+                  ? {
+                      margin: 10,
+                      borderRadius: 7,
+                      padding: 15,
+                      // borderColor: "red",
+                      backgroundColor: "#088F8F",
+                      borderWidth: 0.7,
+                    }
+                  : {
+                      margin: 10,
+                      borderRadius: 7,
+                      padding: 15,
+                      borderColor: "gray",
+                      borderWidth: 0.7,
+                    }
+              }
+              onPress={() => setArea(item.area)}
+              key={i}
+            >
+              <Text>{item.area}</Text>
+            </Pressable>
+          ))}
+        </ScrollView>
 
 
         <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}>

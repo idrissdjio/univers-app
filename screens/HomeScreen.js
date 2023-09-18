@@ -186,7 +186,7 @@ const HomeScreen = () => {
               { opacity: fadeOut, marginBottom: windowHeight * 0.05 },
             ]}
           >
-            <Image source={require('../assets/icon.png')} style={styles.logo} />
+            <Image source={require('../assets/logo2.jpeg')} style={styles.logo} />
           </Animated.View>
         )}
         <View>
