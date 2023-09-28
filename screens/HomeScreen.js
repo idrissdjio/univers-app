@@ -42,10 +42,11 @@ const HomeScreen = () => {
     const [showLogo, setShowLogo] = useState(true);
     const [fadeOut] = useState(new Animated.Value(1));
 
-    useEffect(() => {
-        checkIfLocationEnabled();
-        getCurrentLocation();
-    }, []);
+    // remove cuz appstore
+    // useEffect(() => {
+    //     checkIfLocationEnabled();
+    //     getCurrentLocation();
+    // }, []);
 
     const checkIfLocationEnabled = async () => {
         let enabled = await Location.hasServicesEnabledAsync();
@@ -202,7 +203,9 @@ const HomeScreen = () => {
             <MaterialIcons name="location-on" size={30} color="#fd5c63" />
           <View>
             <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
-            <Text>{displayCurrentAddress}</Text>
+            {/* <Text>{displayCurrentAddress}</Text> */}
+            {/* Remove location cuz of appstore */}
+            <Text>Douala, Cameroon</Text>
           </View>
 
 
