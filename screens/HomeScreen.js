@@ -43,10 +43,10 @@ const HomeScreen = () => {
     const [fadeOut] = useState(new Animated.Value(1));
 
     // remove cuz appstore
-    // useEffect(() => {
-    //     checkIfLocationEnabled();
-    //     getCurrentLocation();
-    // }, []);
+    useEffect(() => {
+        checkIfLocationEnabled();
+        getCurrentLocation();
+    }, []);
 
     const checkIfLocationEnabled = async () => {
         let enabled = await Location.hasServicesEnabledAsync();

@@ -51,7 +51,9 @@ const UserSettings = () => {
             try {
               // Delete user data from 'users' collection
               const userDocRef = doc(db, 'users', user.uid);
+              const userDocRef2 = doc(db, 'Commandes', user.uid);
               await deleteDoc(userDocRef);
+              await deleteDoc(userDocRef2);
   
               // Delete the user account
               await user.delete();
